@@ -13,11 +13,17 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PreRemove;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.Where;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.hibernate.jpa.prac.HibernateJpaPracApplication;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -38,8 +44,18 @@ import lombok.NoArgsConstructor;
 //performing 1 L2C hits - mean there is data is already into ehcache and use from cache
 //performing 0 L2C misses - mean there is no data for id 10001 and hibernate put it to ehcache L2C misses
 //http://localhost:8080/courses/10001 - on first hit course will be fetch from db, second onward from ehcache
+@SQLDelete(sql="update course set is_deleted = true where id = ?") //set true whenever delete by id will be fired
+@Where(clause="is_deleted = false") //if is_deleted is set to false then only find by id and return record
+//soft delete - @SQLDelete, @Where and isDeleted combination
+//in case of soft delete - in case of native query we have to use where is_deleted=0 manually, 
+//ex - select * from course where is_deleted=0
+//in case of soft delete - if using entity manager to remove course then need to setIsDeleted as true 
+//bcz in db value will be true but in entity value will not be updated
+//second solution we can use preRemove cycle method which will be called before deletion
 public class Course {
 
+	private static final Logger logger = LoggerFactory.getLogger(Course.class);
+	
 	@Id
 	@GeneratedValue
 	private Integer id;
@@ -59,6 +75,14 @@ public class Course {
 	
 	@CreationTimestamp //hibernate annotation not jpa, use to set when first time record will be create
 	private LocalDateTime updated;
+	
+	private boolean isDeleted; //for soft deletion
+	
+	@PreRemove  //some of others hooks - @PostRemove, @PostLoad, @PostPersist, @PostUpdate same as @PreX
+	public void preRemove() {
+		logger.info("preRemove to set isDeleted as true");
+		this.isDeleted = true;
+	}
 	
 	public Course(String name) {
 		this.name = name;

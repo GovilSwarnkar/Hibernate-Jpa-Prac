@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hibernate.jpa.prac.entity.Address;
 import com.hibernate.jpa.prac.entity.Course;
 import com.hibernate.jpa.prac.entity.Passport;
 import com.hibernate.jpa.prac.entity.Student;
@@ -87,5 +88,15 @@ public class StudentRepository {//for performing update operation transaction sh
 		
 		//Dababase operation 4 - update student
 		student.setName("Shiva - Updated");
+	}
+	
+	public void setAddressToStudentAndGetAddress() {
+		Student student = entityManager.find(Student.class, 20001);
+		student.setAddress(new Address("Amphitheatre Parkway", "Muntain View", "California"));
+		entityManager.flush();
+		
+		logger.info("student -> {}", student);
+		logger.info("passport -> {}", student.getPassport());
+		logger.info("address -> {}", student.getAddress());
 	}
 }

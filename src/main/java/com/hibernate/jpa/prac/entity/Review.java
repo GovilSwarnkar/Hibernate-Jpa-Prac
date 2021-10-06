@@ -2,10 +2,14 @@ package com.hibernate.jpa.prac.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import com.hibernate.jpa.prac.enumdata.ReviewRating;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,7 +25,8 @@ public class Review {
 	@GeneratedValue
 	private int id;
 	
-	private String rating;
+	@Enumerated(EnumType.STRING)
+	private ReviewRating rating;
 	
 	@Column(nullable = false)
 	private String description;
@@ -29,7 +34,7 @@ public class Review {
 	@ManyToOne
 	private Course course; //by default ManyToOne is eager fetching 
 	
-	public Review(String rating, String description) {
+	public Review(ReviewRating rating, String description) {
 		super();
 		this.rating = rating;
 		this.description = description;

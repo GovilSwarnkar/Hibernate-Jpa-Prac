@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -38,6 +39,9 @@ public class Student {
 			   joinColumns = @JoinColumn(name = "STUDENT_ID"),
 			   inverseJoinColumns = @JoinColumn(name = "COURSE_ID"))  //JoinTable use at owning side
 	List<Course> courses = new ArrayList<Course>();
+	
+	@Embedded //taken address object and directly stored in current student object into student table into db
+	private Address address;
 	
 	public Student(String name) {
 		super();

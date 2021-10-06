@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.hibernate.jpa.prac.entity.Course;
 import com.hibernate.jpa.prac.entity.Review;
+import com.hibernate.jpa.prac.enumdata.ReviewRating;
 
 @Repository
 @Transactional
@@ -46,8 +47,8 @@ public class CourseRepository {//for performing update operation transaction sho
 		logger.info("review -> {}", course.getReviews());
 		
 		//for adding review to course
-		Review review1 = new Review("5", "Awosme course and easy to learn");
-		Review review2 = new Review("5", "Super.");
+		Review review1 = new Review(ReviewRating.FIVE, "Awosme course and easy to learn");
+		Review review2 = new Review(ReviewRating.FOUR, "Super.");
 		
 		//setting relationship btw course and review
 		course.addReview(review1);

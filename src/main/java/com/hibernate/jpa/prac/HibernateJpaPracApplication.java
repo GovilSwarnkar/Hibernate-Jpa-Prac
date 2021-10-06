@@ -71,5 +71,7 @@ public class HibernateJpaPracApplication implements CommandLineRunner{
 		
 		logger.info("parttime employees -> {}", employeeRepository.retrievePartTimeEmployee());
 		logger.info("\nfulltime employees -> {}", employeeRepository.retrieveFullTimeEmployee());*/
+		
+		//studentRepository.setAddressToStudentAndGetAddress();
 	}
 }
