@@ -1,17 +1,20 @@
 package com.hibernate.jpa.prac.repository;
 
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hibernate.jpa.prac.entity.Course;
 import com.hibernate.jpa.prac.entity.Passport;
 import com.hibernate.jpa.prac.entity.Student;
-
+//javax.transaction.Transactional - jpa transaction only use with one database
+//and for working with multi database at one transaction then should use spring transaction 
+//- org.springframework.transaction.annotation.Transactional
 @Repository
 @Transactional
 public class StudentRepository {//for performing update operation transaction should be

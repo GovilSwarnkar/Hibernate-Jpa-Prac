@@ -64,12 +64,12 @@ public class HibernateJpaPracApplication implements CommandLineRunner{
 		
 		//studentRepository.saveStudentAndCourse(new Student("Narayan"), new Course("Google cloud platform"));
 		
-		employeeRepository.insert(new PartTimeEmployee("Ganesh", new BigDecimal("300")));
+		/*employeeRepository.insert(new PartTimeEmployee("Ganesh", new BigDecimal("300")));
 		employeeRepository.insert(new FullTimeEmployee("Kartik", new BigDecimal("150000")));
 		
 		//logger.info("employees -> {}", employeeRepository.retrieveEmployee());
 		
 		logger.info("parttime employees -> {}", employeeRepository.retrievePartTimeEmployee());
-		logger.info("\nfulltime employees -> {}", employeeRepository.retrieveFullTimeEmployee());
+		logger.info("\nfulltime employees -> {}", employeeRepository.retrieveFullTimeEmployee());*/
 	}
 }

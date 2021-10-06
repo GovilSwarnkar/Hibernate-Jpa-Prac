@@ -4,7 +4,6 @@ package com.hibernate.jpa.prac.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -12,10 +11,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hibernate.jpa.prac.entity.Course;
 import com.hibernate.jpa.prac.entity.Review;
-import com.hibernate.jpa.prac.entity.Student;
 
 
 @SpringBootTest
@@ -93,11 +93,11 @@ class CourseRepositoryTest {//junit has lower priority than run method of Comman
 	}
 	
 	@Test
-	@Transactional
+	@Transactional(isolation=Isolation.READ_COMMITTED)
 	void retrieveCourseAndStdent() {
 		Course course = entityManager.find(Course.class, 10001);
 		logger.info("course -> {}", course);
 		logger.info("courses -> {}", course.getStudents());  // student_course students0_ inner join
 	}
-
+	
 }
