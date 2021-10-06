@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,6 +33,11 @@ import lombok.NoArgsConstructor;
 		     })
 //@NamedQuery(name="find_all_course", query="select c from Course c")
 //@NamedQuery(name="find_course_where_Hib", query="select c from Course c where name like 'Hib%'")
+@Cacheable // by default second level ehcache is true
+//performing 1 L2C puts - mean there is no data for id 10001 and hibernate put it to ehcache from L2C misses
+//performing 1 L2C hits - mean there is data is already into ehcache and use from cache
+//performing 0 L2C misses - mean there is no data for id 10001 and hibernate put it to ehcache L2C misses
+//http://localhost:8080/courses/10001 - on first hit course will be fetch from db, second onward from ehcache
 public class Course {
 
 	@Id
