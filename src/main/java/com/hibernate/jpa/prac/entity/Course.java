@@ -35,7 +35,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @NamedQueries(value = {
 			@NamedQuery(name="find_all_course", query="select c from Course c"),
-			@NamedQuery(name="find_course_where_Hib", query="select c from Course c where name like 'Hib%'")  
+			@NamedQuery(name="find_course_where_Hib", query="select c from Course c where name like 'Hib%'"),
+			@NamedQuery(name="find_all_course_join_fetch", query="select c from Course c JOIN FETCH c.students s")
 		     })
 //@NamedQuery(name="find_all_course", query="select c from Course c")
 //@NamedQuery(name="find_course_where_Hib", query="select c from Course c where name like 'Hib%'")
