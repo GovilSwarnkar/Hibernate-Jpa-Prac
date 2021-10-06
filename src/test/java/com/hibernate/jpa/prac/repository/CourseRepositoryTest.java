@@ -3,6 +3,8 @@ package com.hibernate.jpa.prac.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Optional;
+
 import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.Test;
@@ -98,6 +100,20 @@ class CourseRepositoryTest {//junit has lower priority than run method of Comman
 		Course course = entityManager.find(Course.class, 10001);
 		logger.info("course -> {}", course);
 		logger.info("courses -> {}", course.getStudents());  // student_course students0_ inner join
+	}
+	
+	@Test
+	@Transactional //first level cache store data inside persistence context within boundary of transaction
+	void firstLevelCache() {
+		Course course = courseRepository.findById(10001);
+		logger.info("first retreive -> {}", course);
+		
+		Course course1 = courseRepository.findById(10001);  
+		//here in presence of @Transcation in firstLevelCache method first level cache comes into picture
+		//ideal place to use @Transcation is service method
+		//if we will not use @Transcation in firstLevelCache method then both time findById will be having
+		//there own transaction and two time query will be fired
+		logger.info("second retreive -> {}", course1);
 	}
 	
 }
