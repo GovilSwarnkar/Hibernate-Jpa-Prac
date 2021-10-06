@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -43,6 +45,7 @@ public class Course {
 	private List<Review> reviews = new ArrayList<Review>();
 	
 	@ManyToMany(mappedBy = "courses") //student is owning side
+	@JsonIgnore
 	List<Student> students = new ArrayList<Student>();
 	
 	@UpdateTimestamp //hibernate annotation not jpa, use to set update time

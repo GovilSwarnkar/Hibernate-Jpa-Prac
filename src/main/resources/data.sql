@@ -1,6 +1,13 @@
 insert into course(id, name, created, updated) values (10001, 'Hibernate-Jpa', sysdate(), sysdate());
 insert into course(id, name, created, updated) values (10002, 'Spring', sysdate(), sysdate());
 insert into course(id, name, created, updated) values (10003, 'Spring Boot', sysdate(), sysdate());
+insert into course(id, name, created, updated) values (10004, 'React JS', sysdate(), sysdate());
+insert into course(id, name, created, updated) values (10005, 'React Native', sysdate(), sysdate());
+insert into course(id, name, created, updated) values (10006, 'Docker', sysdate(), sysdate());
+insert into course(id, name, created, updated) values (10007, 'Kubernetes', sysdate(), sysdate());
+insert into course(id, name, created, updated) values (10008, 'Data Structure', sysdate(), sysdate());
+insert into course(id, name, created, updated) values (10009, 'Algorithm', sysdate(), sysdate());
+insert into course(id, name, created, updated) values (10010, 'Database Desing', sysdate(), sysdate());
 
 insert into passport(id, number) values(40001, 'E129845');
 insert into passport(id, number) values(40002, 'L925376');
